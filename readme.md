@@ -4,12 +4,10 @@
 
 ### Setup
 
-node v13
-yarn
+Install node v13 and yarn
 
 ```
 yarn install && yarn lerna bootstrap
-
 ```
 
 then:
