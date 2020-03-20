@@ -1,0 +1,47 @@
+version: 2
+
+jobs:
+  build-test-deploy:
+    docker:
+      - image: circleci/node:13
+    steps:
+      - checkout
+      - run:
+          name: Combine yarn.lock files to single file
+          command: npx lerna list -p -a | awk -F packages '{printf "\"packages%s/yarn.lock\" ", $2}' | xargs cat > combined-package-lock.txt
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}-{{ checksum "combined-package-lock.txt" }}
+            - yarn-packages
+          name: Restore Yarn Package Cache
+      - run:
+          name: Yarn Install
+          command: yarn install --pure-lockfile
+      - run:
+          name: Add node modules to $PATH
+          command: echo 'export PATH=${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin' >> $BASH_ENV
+      - run:
+          name: Lerna Bootstrap
+          command: yarn lerna bootstrap
+      - save_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}-{{ checksum "combined-package-lock.txt" }}
+          name: Save Yarn Package Cache
+          paths:
+            - ~/.cache/yarn
+      - run:
+          name: test
+          command: yarn lerna run ci
+      - run:
+          name: "Deploy to production"
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]
+            then
+              yarn lerna run ci:deploy
+            fi
+
+
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build-test-deploy

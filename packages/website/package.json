@@ -1,0 +1,69 @@
+{
+  "name": "integration-playground-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "rm -rf ./build && EXTEND_ESLINT=true react-app-rewired build",
+    "check:node": "check-node-version --package",
+    "ci": "CI=TRUE yarn build && CI=TRUE yarn test",
+    "ci:deploy": "yarn build && firebase deploy --token \"$FIREBASE_TOKEN\"",
+    "deploy": "yarn build && firebase deploy",
+    "format:js": "prettier --write 'src/**/*.{js,jsx,json,css,scss,md}'",
+    "postinstall": "yarn run check:node",
+    "lint:staged": "lint-staged",
+    "start": "EXTEND_ESLINT=true react-app-rewired start",
+    "test": "react-app-rewired test"
+  },
+  "lint-staged": {
+    "package.json": [
+      "sort-package-json",
+      "git add"
+    ],
+    "src/**/*.{js,jsx}": [
+      "prettier --write",
+      "eslint --max-warnings=0",
+      "git add"
+    ],
+    "src/**/*.{json,css,scss,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "check-node-version": "^4.0.1",
+    "eslint-config-prettier": "^6.2.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "firebase-tools": "^7.12.1",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
+    "prettier": "^1.18.2",
+    "react": "^16.12.0",
+    "react-app-rewired": "^2.1.5",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "react-select": "^3.0.8",
+    "sort-package-json": "^1.22.1",
+    "styled-components": "^5.0.1",
+    "superagent": "^5.2.1"
+  },
+  "engines": {
+    "node": ">= 13.5.0 < 14"
+  },
+  "engine-strict": true
+}

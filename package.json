@@ -1,0 +1,20 @@
+{
+  "name": "integration-playground",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Richard Gill <richardg@stripe.com>",
+  "dependencies": {
+    "firebase": "^7.8.2",
+    "husky": "^4.2.3",
+    "lerna": "^3.20.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna run --concurrency 1 --stream lint:staged"
+    }
+  },
+  "engines": {
+    "node": ">= 13.4 < 14"
+  },
+  "engine-strict": true
+}
