@@ -1,6 +1,6 @@
 ## Stripe Integration Playground
 
-[![CircleCI](https://circleci.com/gh/richardg-stripe/integration-playground.svg?style=svg)](https://circleci.com/gh/richardg-stripe/integration-playground)
+[![CircleCI](https://circleci.com/gh/richardg-stripe/integration-playground.svg?style=svg&circle-token=6eff844c86aa1bd1291c376d51d1ac74a88ff2ae)](https://circleci.com/gh/richardg-stripe/integration-playground)
 
 ### Setup
 
