@@ -1,9 +1,9 @@
-import StripeElements from '../stripeElements'
+import Checkout from '../components/pages/checkout'
 
 const routes = [
   {
     path: '/',
-    component: StripeElements
+    component: Checkout
   }
 ]
 
