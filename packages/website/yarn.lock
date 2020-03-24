@@ -2074,14 +2074,14 @@
 
 "@stripe/react-stripe-js@^1.0.2":
   version "1.0.2"
-  resolved "https://npm-registry.local.corp.stripe.com/@stripe/react-stripe-js/-/react-stripe-js-1.0.2.tgz#3e8646f94f0f8a3b102fbc9a2e7c913ba23fff7b"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.0.2.tgz#3e8646f94f0f8a3b102fbc9a2e7c913ba23fff7b"
   integrity sha512-xqPtVc6OLWJifWzEfn7hScYn9na0XHjtjKXNfqatqSbL+rxJ0JGAUyUYpRXGDdw/9DlLLZCYjIpgyxiqwnXq5g==
   dependencies:
     prop-types "^15.7.2"
 
 "@stripe/stripe-js@^1.0.1":
   version "1.0.1"
-  resolved "https://npm-registry.local.corp.stripe.com/@stripe/stripe-js/-/stripe-js-1.0.1.tgz#da6de0ded98a72f6d53c080559a8e27cdba7f3ce"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.0.1.tgz#da6de0ded98a72f6d53c080559a8e27cdba7f3ce"
   integrity sha512-R6G3nBeMpT62+itLyn0uLIiDF3jqe7PqbCwGJtPYN5JBVczJGU9ZkOqICwfUQTSwIiL7kom9FgIa8vmO4MpwQQ==
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
