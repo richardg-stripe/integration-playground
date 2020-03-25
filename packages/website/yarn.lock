@@ -13906,7 +13906,7 @@ utils-merge@1.0.1:
 
 uuid-browser@^3.1.0:
   version "3.1.0"
-  resolved "https://npm-registry.local.corp.stripe.com/uuid-browser/-/uuid-browser-3.1.0.tgz#0f05a40aef74f9e5951e20efbf44b11871e56410"
+  resolved "https://registry.yarnpkg.com/uuid-browser/-/uuid-browser-3.1.0.tgz#0f05a40aef74f9e5951e20efbf44b11871e56410"
   integrity sha1-DwWkCu90+eWVHiDvv0SxGHHlZBA=
 
 uuid@^2.0.1:
