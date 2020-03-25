@@ -24,7 +24,11 @@
     "test:watch": "nodemon -w src -w test --exec 'yarn run test'"
   },
   "dependencies": {
-    "lodash": "^4.17.12"
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "lodash": "^4.17.12",
+    "stripe": "^8.20.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
@@ -38,7 +42,7 @@
     "eslint-plugin-prettier": "^2.0.1",
     "husky": "^1.0.1",
     "lint-staged": "^7.3.0",
-    "mocha": "^7.1.0",
+    "mocha": "^7.0.1",
     "nodemon": "^1.19.4",
     "prettier": "^1.2.2",
     "sort-package-json": "^1.15.0"

@@ -2072,6 +2072,18 @@
   resolved "https://registry.yarnpkg.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.2.tgz#8013f2af54a2b7d735f71560ff360d3a8176a87b"
   integrity sha512-vTCdPp/T/Q3oSqwHmZ5Kpa9oI7iLtGl3RQaA/NyLHikvcrPxACkkKVr/XzkSPJWXHRhKGzVvb0urJsbMlRxi1Q==
 
+"@stripe/react-stripe-js@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@stripe/react-stripe-js/-/react-stripe-js-1.0.2.tgz#3e8646f94f0f8a3b102fbc9a2e7c913ba23fff7b"
+  integrity sha512-xqPtVc6OLWJifWzEfn7hScYn9na0XHjtjKXNfqatqSbL+rxJ0JGAUyUYpRXGDdw/9DlLLZCYjIpgyxiqwnXq5g==
+  dependencies:
+    prop-types "^15.7.2"
+
+"@stripe/stripe-js@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.0.1.tgz#da6de0ded98a72f6d53c080559a8e27cdba7f3ce"
+  integrity sha512-R6G3nBeMpT62+itLyn0uLIiDF3jqe7PqbCwGJtPYN5JBVczJGU9ZkOqICwfUQTSwIiL7kom9FgIa8vmO4MpwQQ==
+
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-4.2.0.tgz#dadcb6218503532d6884b210e7f3c502caaa44b1"
@@ -13891,6 +13903,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid-browser@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/uuid-browser/-/uuid-browser-3.1.0.tgz#0f05a40aef74f9e5951e20efbf44b11871e56410"
+  integrity sha1-DwWkCu90+eWVHiDvv0SxGHHlZBA=
 
 uuid@^2.0.1:
   version "2.0.3"
