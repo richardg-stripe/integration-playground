@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Elements, useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
+import { useHistory } from 'react-router-dom'
 import { stripe } from '../../lib/stripe'
+import { getOrSetUserId } from '../../lib/userId'
 import { CardForm } from '../cardForm'
 import Form from '../../core/form'
 import Button from '../../core/button'
@@ -21,6 +23,10 @@ const CardFormContainer = styled(Form)`
   flex-direction: column;
 `
 
+const Error = styled.p`
+  color: red;
+`
+
 const PayForm = props => {
   const stripe = useStripe()
   const elements = useElements()
@@ -37,8 +43,19 @@ const PayForm = props => {
 
         if (error) {
           console.log('[error]', error)
+          props.onError(error)
         } else {
           console.log('[PaymentMethod]', paymentMethod)
+
+          // You can simulatenously create the payment method here if you like.
+          const { error, paymentIntent } = await stripe.confirmCardPayment(props.paymentIntentClientSecret, {
+            payment_method: paymentMethod.id
+          })
+          if (error) {
+            props.onError(error)
+          } else {
+            props.onSuccess(paymentIntent)
+          }
         }
       }}
     >
@@ -48,10 +65,35 @@ const PayForm = props => {
   )
 }
 
-export default () => {
+export default props => {
+  const [paymentIntentClientSecret, setPaymentIntentClientSecret] = useState(null)
+  const [error, setError] = useState(null)
+  const history = useHistory()
+  useEffect(() => {
+    ;(async () => {
+      console.log('mounted')
+      const paymentIntent = await fetch('http://localhost:5000/payment/start', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ userId: getOrSetUserId() })
+      })
+      const response = await paymentIntent.json()
+      console.log('response', response)
+      setPaymentIntentClientSecret(response.clientSecret)
+    })()
+  }, [])
   return (
-    <Elements stripe={stripe}>
-      <PayForm />
-    </Elements>
+    <div>
+      <Elements stripe={stripe}>
+        <PayForm
+          paymentIntentClientSecret={paymentIntentClientSecret}
+          onSuccess={() => history.push('/paymentSucceeded')}
+          onError={error => setError(JSON.stringify(error))}
+        />
+      </Elements>
+      <Error>{error}</Error>
+    </div>
   )
 }
