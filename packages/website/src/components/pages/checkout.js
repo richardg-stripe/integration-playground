@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { Elements, useStripe, useElements, CardElement } from '@stripe/react-stripe-js'
 import { useHistory } from 'react-router-dom'
 import { stripe } from '../../lib/stripe'
+import { apiBase } from '../../lib/api'
 import { getOrSetUserId } from '../../lib/userId'
 import { CardForm } from '../cardForm'
 import Form from '../../core/form'
@@ -72,7 +73,7 @@ export default props => {
   useEffect(() => {
     ;(async () => {
       console.log('mounted')
-      const paymentIntent = await fetch('http://localhost:5000/payment/start', {
+      const paymentIntent = await fetch(`${apiBase()}/payment/start`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
