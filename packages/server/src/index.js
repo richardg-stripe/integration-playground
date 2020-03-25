@@ -1,9 +1,8 @@
-import _ from 'lodash'
 import express from 'express'
-import stripe from './stripe'
-import { handleWebhook } from './webhooks'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import stripe from './stripe'
+import { handleWebhook } from './webhooks'
 import { getCurrentPaymentIntentForUser, createPaymentIntent } from './database'
 
 const app = express()
