@@ -24,6 +24,7 @@ app.post('/payment/start', async (request, response) => {
 })
 
 app.post('/hooks', handleWebhook)
+app.use('/', express.static('website'))
 
 const PORT = 5000
 app.listen(PORT, () => {

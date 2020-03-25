@@ -13,6 +13,10 @@
       "pre-commit": "lerna run --concurrency 1 --stream lint:staged"
     }
   },
+  "scripts": {
+    "build": "yarn lerna bootstrap && (cd packages/website && yarn build) && cp -r packages/website/build packages/server/website",
+    "start": "(cd packages/server && yarn start)"
+  },
   "engines": {
     "node": ">= 13.4 < 14"
   },
