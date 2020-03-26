@@ -3,20 +3,25 @@ import { CardElement as CardElementComponent } from '@stripe/react-stripe-js'
 
 const CARD_OPTIONS = {
   iconStyle: 'solid',
+  hidePostalCode: true,
   style: {
     base: {
       iconColor: '#c4f0ff',
       color: '#fff',
       fontWeight: 500,
-      fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+      fontFamily: 'Comic Sans MS',
       fontSize: '16px',
       fontSmoothing: 'antialiased',
-      ':-webkit-autofill': { color: '#fce883' },
-      '::placeholder': { color: '#87bbfd' }
+      ':-webkit-autofill': {
+        color: '#fce883'
+      },
+      '::placeholder': {
+        color: '#87BBFD'
+      }
     },
     invalid: {
-      iconColor: '#ffc7ee',
-      color: '#ffc7ee'
+      iconColor: '#FFC7EE',
+      color: '#FFC7EE'
     }
   }
 }

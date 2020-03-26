@@ -13,7 +13,7 @@ const CardFormContainer = styled(Form)`
   margin: 90px;
   padding: 20px;
   border-style: none;
-  background-color: #7795f8;
+  background-color: #ff33f0;
   will-change: opacity, transform;
   box-shadow: 0 6px 9px rgba(50, 50, 93, 0.06), 0 2px 5px rgba(0, 0, 0, 0.08), inset 0 1px 0 #829fff;
   border-radius: 4px;
@@ -87,6 +87,7 @@ export default props => {
   }, [])
   return (
     <div>
+      <a href="https://github.com/richardg-stripe/integration-playground">Github</a>
       <Elements stripe={stripe}>
         <PayForm
           paymentIntentClientSecret={paymentIntentClientSecret}
