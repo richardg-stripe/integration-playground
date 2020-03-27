@@ -1,8 +1,7 @@
-import _ from 'lodash'
 import { updatePaymentIntent } from './database'
 
 const handlePaymentIntentSucceeded = paymentIntent => {
-  return updatePaymentIntent(paymentIntent.id, _.pick(paymentIntent, 'status'))
+  return updatePaymentIntent(paymentIntent.id, { succeeded: true })
 }
 
 export const handleWebhook = (request, response) => {

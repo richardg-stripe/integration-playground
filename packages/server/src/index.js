@@ -10,7 +10,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 const createPaymentIntentAndSave = async userId => {
-  const paymentIntent = await stripe.paymentIntents.create({ amount: 2000, currency: 'gbp', payment_method_types: ['card'] })
+  const paymentIntent = await stripe.paymentIntents.create({ amount: 2000, currency: 'eur', payment_method_types: ['card', 'ideal'] })
   console.log(paymentIntent)
   return createPaymentIntent(userId, paymentIntent)
 }
@@ -19,7 +19,8 @@ app.post('/payment/start', async (request, response) => {
   console.log(request.body)
   const userId = request.body.userId
   console.log('userId', userId)
-  const paymentIntent = getCurrentPaymentIntentForUser(userId) || (await createPaymentIntentAndSave(userId))
+  const paymentIntentDbRecord = getCurrentPaymentIntentForUser(userId) || (await createPaymentIntentAndSave(userId))
+  const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentDbRecord.id)
   response.json(paymentIntent)
 })
 

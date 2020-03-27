@@ -3,7 +3,7 @@ import _ from 'lodash'
 const paymentIntents = []
 
 export const getCurrentPaymentIntentForUser = userId => {
-  return _.find(paymentIntents, pi => pi.status !== 'succeeded' && pi.userId === userId)
+  return _.find(paymentIntents, pi => !pi.succeeded && pi.userId === userId)
 }
 
 export const getPaymentIntentById = id => {
@@ -11,7 +11,11 @@ export const getPaymentIntentById = id => {
 }
 
 export const createPaymentIntent = (userId, paymentIntent) => {
-  const newPaymentIntent = { userId, id: paymentIntent.id, clientSecret: paymentIntent.client_secret, status: paymentIntent.status }
+  const newPaymentIntent = {
+    userId,
+    id: paymentIntent.id,
+    succeeded: false,
+  }
   paymentIntents.push(newPaymentIntent)
   return newPaymentIntent
 }
