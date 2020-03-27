@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { updatePaymentIntent } from './database'
 
 const handlePaymentIntentSucceeded = paymentIntent => {
