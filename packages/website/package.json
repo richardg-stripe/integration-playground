@@ -63,6 +63,7 @@
     "sort-package-json": "^1.22.1",
     "styled-components": "^5.0.1",
     "superagent": "^5.2.1",
+    "urijs": "^1.19.2",
     "uuid-browser": "^3.1.0"
   },
   "engines": {
