@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import rewriter from 'express-rewrite'
 import path from 'path'
 import stripe from './stripe'
 import { handleWebhook } from './webhooks'
