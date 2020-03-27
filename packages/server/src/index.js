@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import rewriter from 'express-rewrite'
+import path from 'path'
 import stripe from './stripe'
 import { handleWebhook } from './webhooks'
 import { getCurrentPaymentIntentForUser, createPaymentIntent } from './database'
@@ -15,7 +17,11 @@ const createPaymentIntentAndSave = async userId => {
   return createPaymentIntent(userId, paymentIntent)
 }
 
-app.post('/payment/start', async (request, response) => {
+app.use('/', express.static('website'))
+
+app.get('/*', (req, res) => res.sendFile(path.join(path.resolve(), '/website/index.html')))
+
+app.post('/api/payment/start', async (request, response) => {
   console.log(request.body)
   const userId = request.body.userId
   console.log('userId', userId)
@@ -24,8 +30,7 @@ app.post('/payment/start', async (request, response) => {
   response.json(paymentIntent)
 })
 
-app.post('/hooks', handleWebhook)
-app.use('/', express.static('website'))
+app.post('/api/hooks', handleWebhook)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
