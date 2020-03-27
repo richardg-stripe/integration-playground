@@ -27,7 +27,6 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "express-rewrite": "^0.0.4",
     "lodash": "^4.17.12",
     "stripe": "^8.20.0"
   },
