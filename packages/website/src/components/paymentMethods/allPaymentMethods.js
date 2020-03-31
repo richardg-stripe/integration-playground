@@ -3,6 +3,7 @@ import _ from 'lodash'
 import styled from 'styled-components'
 import Card from './card'
 import Ideal from './ideal'
+import Sepa from './sepa'
 import { Div } from '../../core/div'
 import Select from 'react-select'
 
@@ -10,7 +11,11 @@ const Container = styled(Div)`
   flex-direction: column;
 `
 
-const PAYMENT_METHODS = [{ value: 'card', label: 'Card', component: Card }, { value: 'ideal', label: 'iDEAL', component: Ideal }]
+const PAYMENT_METHODS = [
+  { value: 'card', label: 'Card', component: Card },
+  { value: 'ideal', label: 'iDEAL', component: Ideal },
+  { value: 'sepa', label: 'Sepa', component: Sepa }
+]
 
 export default props => {
   const [paymentMethodValue, setPaymentMethodValue] = useState('card')

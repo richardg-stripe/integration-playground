@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 const createPaymentIntentAndSave = async userId => {
-  const paymentIntent = await stripe.paymentIntents.create({ amount: 2000, currency: 'eur', payment_method_types: ['card', 'ideal'] })
+  const paymentIntent = await stripe.paymentIntents.create({ amount: 2000, currency: 'eur', payment_method_types: ['card', 'ideal', 'sepa_debit'] })
   console.log(paymentIntent)
   return createPaymentIntent(userId, paymentIntent)
 }
