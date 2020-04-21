@@ -7,8 +7,11 @@ import { handleWebhook } from './webhooks'
 import { getCurrentPaymentIntentForUser, createPaymentIntent } from './database'
 
 const app = express()
-app.use(bodyParser.json())
 app.use(cors())
+
+app.post('/api/hooks', bodyParser.raw({ type: 'application/json' }), handleWebhook)
+
+app.use(bodyParser.json())
 
 const createPaymentIntentAndSave = async userId => {
   const paymentIntent = await stripe.paymentIntents.create({ amount: 2000, currency: 'eur', payment_method_types: ['card', 'ideal', 'sepa_debit'] })
@@ -28,8 +31,6 @@ app.post('/api/payment/start', async (request, response) => {
   const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentDbRecord.id)
   response.json(paymentIntent)
 })
-
-app.post('/api/hooks', handleWebhook)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
