@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -14,7 +15,14 @@ app.post('/api/hooks', bodyParser.raw({ type: 'application/json' }), handleWebho
 app.use(bodyParser.json())
 
 const createPaymentIntentAndSave = async userId => {
-  const paymentIntent = await stripe.paymentIntents.create({ amount: 2000, currency: 'eur', payment_method_types: ['card', 'ideal', 'sepa_debit'] })
+  const category = _.sample(['clothes', 'swag', 'merch'])
+  const moreInfoLink = 'https://google.com/search?q=swag'
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 2000,
+    currency: 'eur',
+    payment_method_types: ['card', 'ideal', 'sepa_debit'],
+    metadata: { category, moreInfoLink },
+  })
   console.log(paymentIntent)
   return createPaymentIntent(userId, paymentIntent)
 }
@@ -30,6 +38,25 @@ app.post('/api/payment/start', async (request, response) => {
   const paymentIntentDbRecord = getCurrentPaymentIntentForUser(userId) || (await createPaymentIntentAndSave(userId))
   const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentDbRecord.id)
   response.json(paymentIntent)
+})
+
+app.post('/api/checkout/start', async (request, response) => {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card', 'ideal'],
+    line_items: [
+      {
+        name: 'T-shirt',
+        description: 'Comfortable cotton t-shirt',
+        images: ['https://www.clothes2order.com/images/Russell_Classic_TShirt_White-1046-475.jpg'],
+        amount: 500,
+        currency: 'eur',
+        quantity: 1,
+      },
+    ],
+    success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
+    cancel_url: 'https://example.com/cancel',
+  })
+  response.json(session)
 })
 
 const PORT = process.env.PORT || 5000
