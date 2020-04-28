@@ -3,8 +3,9 @@ import CheckoutJS from '../components/pages/checkoutJS'
 import PaymentSucceeded from '../components/pages/paymentSucceeded'
 import PaymentError from '../components/pages/paymentError'
 import PaymentRedirect from '../components/pages/paymentRedirect'
+import Routes from '../components/pages/routes'
 
-const routes = [
+export const routes = [
   {
     path: '/paymentSucceeded',
     component: PaymentSucceeded
@@ -18,7 +19,7 @@ const routes = [
     component: PaymentRedirect
   },
   {
-    path: '/checkout',
+    path: '/checkoutjs',
     component: CheckoutJS
   },
   {
@@ -26,9 +27,15 @@ const routes = [
     component: Checkout
   },
   {
-    path: '/',
+    path: '/paymentIntent',
     component: Checkout
   }
 ]
 
-export default routes
+export default [
+  ...routes,
+  {
+    path: '/',
+    component: Routes
+  }
+]
