@@ -19,6 +19,7 @@
     "start": "node --es-module-specifier-resolution=node --experimental-loader ./customLoader.mjs src/index.js",
     "start:built": "node build/index.js",
     "start:debug": "node inspect --es-module-specifier-resolution=node --experimental-loader ./customLoader.mjs src/index.js",
+    "start:dev": "DOTENV_CONFIG_PATH=./.env.development node -r dotenv/config --es-module-specifier-resolution=node --experimental-loader ./customLoader.mjs src/index.js",
     "start:docker": "docker build -t lead-finder-server . && docker run --rm -it lead-finder-server",
     "test": "mocha test",
     "test:watch": "nodemon -w src -w test --exec 'yarn run test'"
@@ -26,6 +27,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "lodash": "^4.17.12",
     "stripe": "^8.20.0"
