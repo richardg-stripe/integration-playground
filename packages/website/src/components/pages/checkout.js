@@ -15,6 +15,7 @@ const Error = styled.p`
 const paymentReturnUrl = () =>
   URI(URI(window.location.href).origin())
     .pathname('/paymentRedirect')
+    .query({ errorRedirect: '/paymentIntent' })
     .toString()
 
 const confirmPayment = async (paymentIntentClientSecret, paymentMethod) => {
