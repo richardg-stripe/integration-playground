@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import _ from 'lodash'
 import { Elements } from '@stripe/react-stripe-js'
 import { useHistory } from 'react-router-dom'
-import { stripe } from '../../lib/stripe'
+import URI from 'urijs'
+import { stripe as stripePromise } from '../../lib/stripe'
 import { apiBase } from '../../lib/api'
 import { getOrSetUserId } from '../../lib/userId'
 import AllPaymentMethods from '../paymentMethods/allPaymentMethods'
@@ -11,6 +12,30 @@ import AllPaymentMethods from '../paymentMethods/allPaymentMethods'
 const Error = styled.p`
   color: red;
 `
+const paymentReturnUrl = () =>
+  URI(URI(window.location.href).origin())
+    .pathname('/paymentRedirect')
+    .query({ errorRedirect: '/paymentIntent' })
+    .toString()
+
+const confirmPayment = async (paymentIntentClientSecret, paymentMethod) => {
+  const stripe = await stripePromise
+  if (paymentMethod.type === 'card') {
+    return stripe.confirmCardPayment(paymentIntentClientSecret, {
+      payment_method: paymentMethod
+    })
+  } else if (paymentMethod.type === 'ideal') {
+    return stripe.confirmIdealPayment(paymentIntentClientSecret, {
+      payment_method: paymentMethod,
+      return_url: paymentReturnUrl()
+    })
+  } else if (paymentMethod.type === 'sepa_debit') {
+    return stripe.confirmSepaDebitPayment(paymentIntentClientSecret, {
+      payment_method: paymentMethod,
+      return_url: paymentReturnUrl()
+    })
+  }
+}
 
 export default props => {
   const [paymentIntentClientSecret, setPaymentIntentClientSecret] = useState(null)
@@ -38,11 +63,17 @@ export default props => {
   return (
     <div>
       <a href="https://github.com/richardg-stripe/integration-playground">Github</a>
-      <Elements stripe={stripe}>
+      <Elements stripe={stripePromise}>
         <AllPaymentMethods
           paymentIntentClientSecret={paymentIntentClientSecret}
-          onSuccess={() => history.push('/paymentSucceeded')}
-          onError={error => setError(JSON.stringify(error))}
+          onSubmit={async paymentMethod => {
+            const { error } = await confirmPayment(paymentIntentClientSecret, paymentMethod)
+            if (error) {
+              setError(JSON.stringify(error))
+            } else {
+              history.push('/paymentSucceeded')
+            }
+          }}
         />
       </Elements>
       <Error>{error}</Error>

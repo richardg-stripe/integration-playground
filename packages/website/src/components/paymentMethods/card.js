@@ -1,5 +1,5 @@
 import React from 'react'
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js'
+import { CardElement, useElements } from '@stripe/react-stripe-js'
 import PaymentForm from './paymentForm'
 
 const CARD_OPTIONS = {
@@ -30,35 +30,16 @@ const CARD_OPTIONS = {
 export const CardForm = props => <CardElement options={CARD_OPTIONS} {...props} />
 
 export default props => {
-  const stripe = useStripe()
   const elements = useElements()
 
   return (
     <PaymentForm
       onSubmit={async e => {
         const cardElement = elements.getElement(CardElement)
-
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        props.onSubmit({
           type: 'card',
           card: cardElement
         })
-
-        if (error) {
-          console.log('[error]', error)
-          props.onError(error)
-        } else {
-          console.log('[PaymentMethod]', paymentMethod)
-
-          // You can simulatenously create the payment method here if you like.
-          const { error, paymentIntent } = await stripe.confirmCardPayment(props.paymentIntentClientSecret, {
-            payment_method: paymentMethod.id
-          })
-          if (error) {
-            props.onError(error)
-          } else {
-            props.onSuccess(paymentIntent)
-          }
-        }
       }}
     >
       <CardForm />

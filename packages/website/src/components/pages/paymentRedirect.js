@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { stripe } from '../../lib/stripe'
 
 export default props => {
+  console.log(props)
   const history = useHistory()
   useEffect(() => {
     ;(async () => {
@@ -12,11 +13,9 @@ export default props => {
       if (status === 'succeeded') {
         history.push('/paymentSucceeded')
       } else {
-        history.push('/checkout')
+        history.push(props.queryParams.errorRedirect)
       }
     })()
   }, [])
-  console.log(props.queryParams)
-
   return <div>Checking Payment Intent...</div>
 }

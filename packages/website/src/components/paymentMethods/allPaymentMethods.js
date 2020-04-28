@@ -24,11 +24,7 @@ export default props => {
   const PaymentMethodComponent = _.get(paymentMethod, 'component')
   return (
     <Container>
-      <PaymentMethodComponent
-        paymentIntentClientSecret={props.paymentIntentClientSecret}
-        onSuccess={props.onSuccess}
-        onError={props.onError}
-      />
+      <PaymentMethodComponent paymentIntentClientSecret={props.paymentIntentClientSecret} onSubmit={props.onSubmit} />
       <Select value={paymentMethod} onChange={newSelection => setPaymentMethodValue(newSelection.value)} options={PAYMENT_METHODS} />
     </Container>
   )
