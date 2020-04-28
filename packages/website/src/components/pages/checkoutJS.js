@@ -17,5 +17,6 @@ export default () => {
       sessionId
     })
   }
+
   return <button onClick={onClick}>Checkout</button>
 }
