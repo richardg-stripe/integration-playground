@@ -17,9 +17,6 @@ export default () => {
       sessionId
     })
   }
-  return (
-    <button role="link" onClick={onClick}>
-      Checkout
-    </button>
-  )
+
+  return <button onClick={onClick}>Checkout</button>
 }
