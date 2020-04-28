@@ -40,9 +40,10 @@ app.post('/api/payment/start', async (request, response) => {
   response.json(paymentIntent)
 })
 
-app.post('/api/checkout/start', async (request, response) => {
+app.post('/api/checkout/payment', async (request, response) => {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card', 'ideal'],
+    mode: 'payment',
     line_items: [
       {
         name: 'T-shirt',
@@ -53,8 +54,30 @@ app.post('/api/checkout/start', async (request, response) => {
         quantity: 1,
       },
     ],
-    success_url: 'https://example.com/success?session_id={CHECKOUT_SESSION_ID}',
-    cancel_url: 'https://example.com/cancel',
+    submit_type: 'book',
+    success_url: `${process.env.WEB_SITE_BASE}/paymentSucceeded?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.WEB_SITE_BASE}/paymentError`,
+  })
+  response.json(session)
+})
+
+app.post('/api/checkout/setup', async (request, response) => {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card', 'sepa_debit'],
+    mode: 'setup',
+    success_url: `${process.env.WEB_SITE_BASE}/paymentSucceeded?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.WEB_SITE_BASE}/paymentError`,
+  })
+  response.json(session)
+})
+
+app.post('/api/checkout/subscription', async (request, response) => {
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ['card'],
+    mode: 'subscription',
+    success_url: `${process.env.WEB_SITE_BASE}/paymentSucceeded?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${process.env.WEB_SITE_BASE}/paymentError`,
+    subscription_data: {},
   })
   response.json(session)
 })
