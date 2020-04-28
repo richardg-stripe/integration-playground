@@ -22,6 +22,10 @@ const routes = [
     component: CheckoutJS
   },
   {
+    path: '/setupIntents',
+    component: Checkout
+  },
+  {
     path: '/',
     component: Checkout
   }

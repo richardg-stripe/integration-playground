@@ -12,11 +12,9 @@ export default props => {
       if (status === 'succeeded') {
         history.push('/paymentSucceeded')
       } else {
-        history.push('/checkout')
+        history.push('/')
       }
     })()
   }, [])
-  console.log(props.queryParams)
-
   return <div>Checking Payment Intent...</div>
 }
