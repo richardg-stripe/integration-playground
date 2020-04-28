@@ -43,8 +43,7 @@ export default props => {
   const history = useHistory()
   useEffect(() => {
     ;(async () => {
-      console.log('mounted')
-      const paymentIntentResponse = await fetch(`${apiBase()}/payment/start`, {
+      const paymentIntentResponse = await fetch(`${apiBase()}/paymentIntent/start`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -65,7 +64,6 @@ export default props => {
       <a href="https://github.com/richardg-stripe/integration-playground">Github</a>
       <Elements stripe={stripePromise}>
         <AllPaymentMethods
-          paymentIntentClientSecret={paymentIntentClientSecret}
           onSubmit={async paymentMethod => {
             const { error } = await confirmPayment(paymentIntentClientSecret, paymentMethod)
             if (error) {

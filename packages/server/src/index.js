@@ -5,7 +5,7 @@ import bodyParser from 'body-parser'
 import path from 'path'
 import stripe from './stripe'
 import { handleWebhook } from './webhooks'
-import { getCurrentPaymentIntentForUser, createPaymentIntent } from './database'
+import { getCurrentPaymentIntentForUser, createPaymentIntent, getCurrentSetupIntentForUser, createSetupIntent } from './database'
 
 const app = express()
 app.use(cors())
@@ -27,17 +27,38 @@ const createPaymentIntentAndSave = async userId => {
   return createPaymentIntent(userId, paymentIntent)
 }
 
+const createSetupIntentAndSave = async userId => {
+  const category = _.sample(['clothes', 'swag', 'merch'])
+  const moreInfoLink = 'https://google.com/search?q=swag'
+  const setupIntent = await stripe.setupIntents.create({
+    payment_method_types: ['card', 'sepa_debit'],
+    customer: 'cus_HBEd78F12WT1GJ',
+    metadata: { category, moreInfoLink },
+  })
+  console.log(setupIntent)
+  return createSetupIntent(userId, setupIntent)
+}
+
 app.use('/', express.static('website'))
 
 app.get('/*', (req, res) => res.sendFile(path.join(path.resolve(), '/website/index.html')))
 
-app.post('/api/payment/start', async (request, response) => {
+app.post('/api/paymentIntent/start', async (request, response) => {
   console.log(request.body)
   const userId = request.body.userId
   console.log('userId', userId)
   const paymentIntentDbRecord = getCurrentPaymentIntentForUser(userId) || (await createPaymentIntentAndSave(userId))
   const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentDbRecord.id)
   response.json(paymentIntent)
+})
+
+app.post('/api/setupIntent/start', async (request, response) => {
+  console.log(request.body)
+  const userId = request.body.userId
+  console.log('userId', userId)
+  const setupIntentDbRecord = getCurrentSetupIntentForUser(userId) || (await createSetupIntentAndSave(userId))
+  const setupIntent = await stripe.setupIntents.retrieve(setupIntentDbRecord.id)
+  response.json(setupIntent)
 })
 
 app.post('/api/checkout/payment', async (request, response) => {
