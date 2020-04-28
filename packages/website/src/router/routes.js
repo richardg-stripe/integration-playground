@@ -1,4 +1,5 @@
-import Checkout from '../components/pages/checkout'
+import PaymentIntent from '../components/pages/paymentIntent'
+import SetupIntent from '../components/pages/setupIntent'
 import CheckoutJS from '../components/pages/checkoutJS'
 import PaymentSucceeded from '../components/pages/paymentSucceeded'
 import PaymentError from '../components/pages/paymentError'
@@ -23,12 +24,12 @@ export const routes = [
     component: CheckoutJS
   },
   {
-    path: '/setupIntents',
-    component: Checkout
+    path: '/setupIntent',
+    component: SetupIntent
   },
   {
     path: '/paymentIntent',
-    component: Checkout
+    component: PaymentIntent
   }
 ]
 
