@@ -16,6 +16,7 @@
     "lint:staged": "lint-staged",
     "lint:watch": "nodemon --watch src --exec \"yarn run lint:without:prettier\"",
     "lint:without:prettier": "yarn run lint:js:without:prettier",
+    "script": "node --es-module-specifier-resolution=node --experimental-loader ./customLoader.mjs",
     "start": "node --es-module-specifier-resolution=node --experimental-loader ./customLoader.mjs src/index.js",
     "start:built": "node build/index.js",
     "start:debug": "node inspect --es-module-specifier-resolution=node --experimental-loader ./customLoader.mjs src/index.js",

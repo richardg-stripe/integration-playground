@@ -50,3 +50,4 @@ rules:
   no-restricted-syntax: 0
   operator-assignment: 0
   no-case-declarations: 0
+  import/newline-after-import: 0
